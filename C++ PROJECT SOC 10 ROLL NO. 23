@@ -1,1 +1,149 @@
 IT IS A FILE THAT CONTAINS THE C++ CODE OF PARAMATRIZED CODE , COPY , INLINE AND FRIEND FUNCTION 
+#include <iostream>
+using namespace std;
+
+class Patient {
+private:
+    float billAmount;
+    string appointmentDate;
+
+public:
+    Patient() {
+        billAmount = 0;
+        appointmentDate = "Not Assigned";
+    }
+
+    Patient(float bill, string date) {
+        billAmount = bill;
+        appointmentDate = date;
+    }
+
+    void display() {
+        cout << "Billing Amount: " << billAmount << endl;
+        cout << "Appointment Date: " << appointmentDate << endl;
+    }
+};
+
+int main() {
+    Patient p1;
+    Patient p2(2500.75, "10-02-2026");
+
+    cout << "Patient 1 Details:" << endl;
+    p1.display();
+
+    cout << "\nPatient 2 Details:" << endl;
+    p2.display();
+
+    return 0;
+}
+#include <iostream>
+using namespace std;
+
+class Add {
+public:
+    inline int sum(int a, int b) {
+        return a + b;
+    }
+};
+
+int main() {
+    Add obj;
+    cout << "Sum = " << obj.sum(10, 20) << endl;
+    return 0;
+}
+#include <iostream>
+using namespace std;
+
+class Demo {
+private:
+    static int count;
+
+public:
+    static void show() {
+        cout << "Count = " << count << endl;
+    }
+};
+
+int Demo::count = 5;
+
+int main() {
+    Demo::show();
+    return 0;
+}
+#include <iostream>
+using namespace std;
+
+class Test {
+private:
+    int x;
+
+public:
+    Test(int val) {
+        x = val;
+    }
+
+    friend void show(Test obj);
+};
+
+void show(Test obj) {
+    cout << "Private value x = " << obj.x << endl;
+}
+
+int main() {
+    Test t(100);
+    show(t);
+    return 0;
+}
+#include <iostream>
+using namespace std;
+
+class Complex {
+private:
+    int real, imag;
+
+public:
+    Complex(int r = 0, int i = 0) {
+        real = r;
+        imag = i;
+    }
+
+    Complex operator+(Complex c) {
+        return Complex(real + c.real, imag + c.imag);
+    }
+
+    Complex operator*(Complex c) {
+        return Complex(
+            real * c.real - imag * c.imag,
+            real * c.imag + imag * c.real
+        );
+    }
+
+    friend ostream& operator<<(ostream& out, Complex& c) {
+        out << c.real << " + " << c.imag << "i";
+        return out;
+    }
+
+    friend istream& operator>>(istream& in, Complex& c) {
+        in >> c.real >> c.imag;
+        return in;
+    }
+};
+
+int main() {
+    Complex c1, c2, c3, c4;
+
+    cout << "Enter first complex number (real imag): ";
+    cin >> c1;
+
+    cout << "Enter second complex number (real imag): ";
+    cin >> c2;
+
+    c3 = c1 + c2;
+    c4 = c1 * c2;
+
+    cout << "Addition: " << c3 << endl;
+    cout << "Multiplication: " << c4 << endl;
+
+    return 0;
+}
+
